@@ -9,18 +9,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlanRequestDTO {
+    private String title;
     private String touristName;
     private LocalDate visitDate;
     private List<PlanItemRequestDTO> places;
-}
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class PlanItemRequestDTO {
-    private Long placeId;
-    private Integer visitOrder;
-    private String estimatedArrivalTime; // Format: "HH:mm"
-    private Integer estimatedDurationMinutes;
-    private String notes;
 }

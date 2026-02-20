@@ -22,3 +22,15 @@ INSERT INTO travel_tips (place_id, tip, tip_type) VALUES
 (2, 'Bring drinking water as no shops nearby', 'GENERAL'),
 (2, 'Visit during sunset for beautiful photos', 'BEST_TIME'),
 (3, 'Early morning is best to see fishing boats return', 'BEST_TIME');
+
+-- Insert Sample Travel Plans
+INSERT INTO travel_plans (title, tourist_name, visit_date, is_finalized) VALUES 
+('Eastern Coast Weekend', 'Thahee', '2026-08-20', false),
+('Heritage Exploration', 'Sarah', '2026-09-15', true);
+
+-- Insert Sample Plan Items
+INSERT INTO plan_items (plan_id, place_id, visit_order, estimated_arrival_time, estimated_duration_minutes, notes) VALUES
+(1, 1, 1, '09:00', 60, 'Morning prayer and architecture view'),
+(1, 2, 2, '11:00', 120, 'Beach time and photography'),
+(2, 6, 1, '10:00', 90, 'Visit the historic temple'),
+(2, 3, 2, '14:30', 60, 'Harbor tour');
