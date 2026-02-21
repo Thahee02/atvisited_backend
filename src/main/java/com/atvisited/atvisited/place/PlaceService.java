@@ -108,6 +108,15 @@ public class PlaceService {
         dto.setParkingAvailable(place.getParkingAvailable());
         dto.setImageUrl(place.getImageUrl());
         dto.setRating(place.getRating());
+        dto.setHistoricalBackground(place.getHistoricalBackground());
+        dto.setCulturalSignificance(place.getCulturalSignificance());
+        dto.setTransportOptions(place.getTransportOptions());
+        dto.setSafetyGuidelines(place.getSafetyGuidelines());
+        dto.setLocalCustoms(place.getLocalCustoms());
+        dto.setNearbyFacilities(place.getNearbyFacilities());
+        dto.setSuitableFor(place.getSuitableFor());
+        dto.setWashroomsAvailable(place.getWashroomsAvailable());
+        dto.setEstimatedVisitDuration(place.getEstimatedVisitDuration());
 
         // Convert travel tips
         if (place.getTravelTips() != null) {
@@ -166,5 +175,14 @@ public class PlaceService {
         place.setAccessibilityInfo(dto.getAccessibilityInfo());
         place.setParkingAvailable(dto.getParkingAvailable());
         place.setImageUrl(dto.getImageUrl());
+        place.setHistoricalBackground(dto.getHistoricalBackground());
+        place.setCulturalSignificance(dto.getCulturalSignificance());
+        place.setTransportOptions(dto.getTransportOptions());
+        place.setSafetyGuidelines(dto.getSafetyGuidelines());
+        place.setLocalCustoms(dto.getLocalCustoms());
+        place.setNearbyFacilities(dto.getNearbyFacilities());
+        place.setSuitableFor(dto.getSuitableFor());
+        place.setWashroomsAvailable(dto.getWashroomsAvailable());
+        place.setEstimatedVisitDuration(dto.getEstimatedVisitDuration());
     }
 }
