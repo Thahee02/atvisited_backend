@@ -70,6 +70,33 @@ public class Place {
 
     private Double rating = 0.0;
 
+    @Column(name = "historical_background", columnDefinition = "TEXT")
+    private String historicalBackground;
+
+    @Column(name = "cultural_significance", columnDefinition = "TEXT")
+    private String culturalSignificance;
+
+    @Column(name = "transport_options", columnDefinition = "TEXT")
+    private String transportOptions;
+
+    @Column(name = "safety_guidelines", columnDefinition = "TEXT")
+    private String safetyGuidelines;
+
+    @Column(name = "local_customs", columnDefinition = "TEXT")
+    private String localCustoms;
+
+    @Column(name = "nearby_facilities", columnDefinition = "TEXT")
+    private String nearbyFacilities;
+
+    @Column(name = "suitable_for")
+    private String suitableFor;
+
+    @Column(name = "washrooms_available")
+    private Boolean washroomsAvailable = false;
+
+    @Column(name = "estimated_visit_duration")
+    private String estimatedVisitDuration;
+
     // Relationships
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<TravelTip> travelTips;

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 public class PlaceDTO {
     private Long id;
     private String name;
+    private Long categoryId;
     private String categoryName;
     private String description;
     private Double distanceFromHome;

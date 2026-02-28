@@ -16,11 +16,17 @@ public class TravelPlanService {
 
     private final TravelPlanRepository travelPlanRepository;
     private final PlaceRepository placeRepository;
+    private final com.atvisited.atvisited.auth.UserRepository userRepository;
+
 
     @Transactional
-    public TravelPlanDTO createPlan(PlanRequestDTO request) {
+    public TravelPlanDTO createPlan(PlanRequestDTO request, String userEmail) {
+        var user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         TravelPlan plan = new TravelPlan();
-        plan.setTitle(request.getTitle() != null ? request.getTitle() : "My Trip on " + request.getVisitDate());
+        plan.setUser(user);
+        plan.setTitle(request.getTitle() != null && !request.getTitle().isEmpty() ? request.getTitle() : "My Trip on " + request.getVisitDate());
         plan.setTouristName(request.getTouristName());
         plan.setVisitDate(request.getVisitDate());
         plan.setIsFinalized(false);
@@ -45,22 +51,25 @@ public class TravelPlanService {
         return mapToDTO(savedPlan);
     }
 
-    public List<TravelPlanDTO> getAllPlans() {
-        return travelPlanRepository.findAll().stream()
+    public List<TravelPlanDTO> getPlansForUser(String userEmail) {
+        return travelPlanRepository.findByUserEmail(userEmail).stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
-    public TravelPlanDTO getPlanById(Long id) {
-        TravelPlan plan = travelPlanRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Plan not found"));
+    public TravelPlanDTO getPlanById(Long id, String userEmail) {
+        TravelPlan plan = travelPlanRepository.findByIdAndUserEmail(id, userEmail)
+                .orElseThrow(() -> new RuntimeException("Plan not found or unauthorized"));
         return mapToDTO(plan);
     }
 
     @Transactional
-    public void deletePlan(Long id) {
-        travelPlanRepository.deleteById(id);
+    public void deletePlan(Long id, String userEmail) {
+        TravelPlan plan = travelPlanRepository.findByIdAndUserEmail(id, userEmail)
+                .orElseThrow(() -> new RuntimeException("Plan not found or unauthorized"));
+        travelPlanRepository.delete(plan);
     }
+
 
     private TravelPlanDTO mapToDTO(TravelPlan plan) {
         BigDecimal totalCost = plan.getItems().stream()

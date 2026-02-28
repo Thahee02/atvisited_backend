@@ -10,29 +10,34 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/plans")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class TravelPlanController {
+
 
     private final TravelPlanService travelPlanService;
 
     @PostMapping
     public ResponseEntity<TravelPlanDTO> createPlan(@RequestBody PlanRequestDTO request) {
-        return new ResponseEntity<>(travelPlanService.createPlan(request), HttpStatus.CREATED);
+        String userEmail = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName();
+        return new ResponseEntity<>(travelPlanService.createPlan(request, userEmail), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<TravelPlanDTO>> getAllPlans() {
-        return ResponseEntity.ok(travelPlanService.getAllPlans());
+        String userEmail = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.ok(travelPlanService.getPlansForUser(userEmail));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TravelPlanDTO> getPlanById(@PathVariable Long id) {
-        return ResponseEntity.ok(travelPlanService.getPlanById(id));
+        String userEmail = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.ok(travelPlanService.getPlanById(id, userEmail));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlan(@PathVariable Long id) {
-        travelPlanService.deletePlan(id);
+        String userEmail = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName();
+        travelPlanService.deletePlan(id, userEmail);
         return ResponseEntity.noContent().build();
     }
+
 }

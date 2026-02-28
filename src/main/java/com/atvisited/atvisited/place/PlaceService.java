@@ -76,6 +76,7 @@ public class PlaceService {
         PlaceDTO dto = new PlaceDTO();
         dto.setId(place.getId());
         dto.setName(place.getName());
+        dto.setCategoryId(place.getCategory().getId());
         dto.setCategoryName(place.getCategory().getName());
         dto.setDescription(place.getDescription());
         dto.setDistanceFromHome(place.getDistanceFromHome());
@@ -88,10 +89,12 @@ public class PlaceService {
         return dto;
     }
 
+
     private PlaceDetailDTO convertToDetailDTO(Place place) {
         PlaceDetailDTO dto = new PlaceDetailDTO();
         dto.setId(place.getId());
         dto.setName(place.getName());
+        dto.setCategoryId(place.getCategory().getId());
         dto.setCategoryName(place.getCategory().getName());
         dto.setDescription(place.getDescription());
         dto.setLatitude(place.getLatitude());
@@ -108,6 +111,15 @@ public class PlaceService {
         dto.setParkingAvailable(place.getParkingAvailable());
         dto.setImageUrl(place.getImageUrl());
         dto.setRating(place.getRating());
+        dto.setHistoricalBackground(place.getHistoricalBackground());
+        dto.setCulturalSignificance(place.getCulturalSignificance());
+        dto.setTransportOptions(place.getTransportOptions());
+        dto.setSafetyGuidelines(place.getSafetyGuidelines());
+        dto.setLocalCustoms(place.getLocalCustoms());
+        dto.setNearbyFacilities(place.getNearbyFacilities());
+        dto.setSuitableFor(place.getSuitableFor());
+        dto.setWashroomsAvailable(place.getWashroomsAvailable());
+        dto.setEstimatedVisitDuration(place.getEstimatedVisitDuration());
 
         // Convert travel tips
         if (place.getTravelTips() != null) {
@@ -148,8 +160,14 @@ public class PlaceService {
         place.setName(dto.getName());
 
         // Set category
-        Category category = categoryRepository.findByName(dto.getCategoryName())
-                .orElseThrow(() -> new RuntimeException("Category not found: " + dto.getCategoryName()));
+        Category category = null;
+        if (dto.getCategoryId() != null) {
+            category = categoryRepository.findById(dto.getCategoryId())
+                    .orElseThrow(() -> new RuntimeException("Category not found: " + dto.getCategoryId()));
+        } else if (dto.getCategoryName() != null) {
+            category = categoryRepository.findByName(dto.getCategoryName())
+                    .orElseThrow(() -> new RuntimeException("Category not found: " + dto.getCategoryName()));
+        }
         place.setCategory(category);
 
         place.setDescription(dto.getDescription());
@@ -166,5 +184,15 @@ public class PlaceService {
         place.setAccessibilityInfo(dto.getAccessibilityInfo());
         place.setParkingAvailable(dto.getParkingAvailable());
         place.setImageUrl(dto.getImageUrl());
+        place.setHistoricalBackground(dto.getHistoricalBackground());
+        place.setCulturalSignificance(dto.getCulturalSignificance());
+        place.setTransportOptions(dto.getTransportOptions());
+        place.setSafetyGuidelines(dto.getSafetyGuidelines());
+        place.setLocalCustoms(dto.getLocalCustoms());
+        place.setNearbyFacilities(dto.getNearbyFacilities());
+        place.setSuitableFor(dto.getSuitableFor());
+        place.setWashroomsAvailable(dto.getWashroomsAvailable());
+        place.setEstimatedVisitDuration(dto.getEstimatedVisitDuration());
     }
+
 }
