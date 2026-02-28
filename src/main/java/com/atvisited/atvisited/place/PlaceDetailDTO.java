@@ -14,6 +14,7 @@ import java.util.List;
 public class PlaceDetailDTO {
     private Long id;
     private String name;
+    private Long categoryId;
     private String categoryName;
     private String description;
     private Double latitude;

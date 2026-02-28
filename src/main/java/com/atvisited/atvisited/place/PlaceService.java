@@ -76,6 +76,7 @@ public class PlaceService {
         PlaceDTO dto = new PlaceDTO();
         dto.setId(place.getId());
         dto.setName(place.getName());
+        dto.setCategoryId(place.getCategory().getId());
         dto.setCategoryName(place.getCategory().getName());
         dto.setDescription(place.getDescription());
         dto.setDistanceFromHome(place.getDistanceFromHome());
@@ -88,10 +89,12 @@ public class PlaceService {
         return dto;
     }
 
+
     private PlaceDetailDTO convertToDetailDTO(Place place) {
         PlaceDetailDTO dto = new PlaceDetailDTO();
         dto.setId(place.getId());
         dto.setName(place.getName());
+        dto.setCategoryId(place.getCategory().getId());
         dto.setCategoryName(place.getCategory().getName());
         dto.setDescription(place.getDescription());
         dto.setLatitude(place.getLatitude());
@@ -157,8 +160,14 @@ public class PlaceService {
         place.setName(dto.getName());
 
         // Set category
-        Category category = categoryRepository.findByName(dto.getCategoryName())
-                .orElseThrow(() -> new RuntimeException("Category not found: " + dto.getCategoryName()));
+        Category category = null;
+        if (dto.getCategoryId() != null) {
+            category = categoryRepository.findById(dto.getCategoryId())
+                    .orElseThrow(() -> new RuntimeException("Category not found: " + dto.getCategoryId()));
+        } else if (dto.getCategoryName() != null) {
+            category = categoryRepository.findByName(dto.getCategoryName())
+                    .orElseThrow(() -> new RuntimeException("Category not found: " + dto.getCategoryName()));
+        }
         place.setCategory(category);
 
         place.setDescription(dto.getDescription());
@@ -185,4 +194,5 @@ public class PlaceService {
         place.setWashroomsAvailable(dto.getWashroomsAvailable());
         place.setEstimatedVisitDuration(dto.getEstimatedVisitDuration());
     }
+
 }

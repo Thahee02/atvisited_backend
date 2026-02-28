@@ -1,12 +1,13 @@
 -- Insert Categories
-INSERT INTO categories (name, description, icon_url) VALUES
- ('Religious', 'Places of worship and spiritual significance', '/icons/religious.png'),
- ('Nature', 'Beaches, lagoons, and natural attractions', '/icons/nature.png'),
- ('Heritage', 'Historical and cultural sites', '/icons/heritage.png'),
- ('Educational', 'Universities and learning centers', '/icons/educational.png'),
- ('Beach', 'Coastal and beach locations', '/icons/beach.png');
+INSERT IGNORE INTO categories (id, name, description, icon_url) VALUES
+ (1, 'Religious', 'Places of worship and spiritual significance', '/icons/religious.png'),
+ (2, 'Nature', 'Beaches, lagoons, and natural attractions', '/icons/nature.png'),
+ (3, 'Heritage', 'Historical and cultural sites', '/icons/heritage.png'),
+ (4, 'Educational', 'Universities and learning centers', '/icons/educational.png'),
+ (5, 'Beach', 'Coastal and beach locations', '/icons/beach.png');
 
-INSERT INTO places (id, name, category_id, description, latitude, longitude, distance_from_home, estimated_cost, opening_time, closing_time, best_time_to_visit, parking_available, rating, historical_background, cultural_significance, transport_options, safety_guidelines, local_customs, nearby_facilities, suitable_for, washrooms_available, estimated_visit_duration, imageUrl) VALUES
+-- Insert Places
+INSERT IGNORE INTO places (id, name, category_id, description, latitude, longitude, distance_from_home, estimated_cost, opening_time, closing_time, best_time_to_visit, parking_available, rating, historical_background, cultural_significance, transport_options, safety_guidelines, local_customs, nearby_facilities, suitable_for, washrooms_available, estimated_visit_duration, image_url) VALUES
 (1, 'Sainthamaruthu Grand Jummah Mosque', 1, 'One of the largest mosques in the Eastern Province, featuring beautiful Islamic architecture and serving as a spiritual hub for the community.', 7.3925, 81.8349, 0.0, 0.00, '05:00:00', '21:00:00', 'Morning hours', true, 5.0, 
 'Built several decades ago, it has undergone multiple renovations to become the architectural marvel it is today. It represents the long-standing Islamic heritage of the Eastern Province.', 
 'It is a key landmark for the Muslim community in Sainthamaruthu and hosts thousands of worshippers during Friday prayers and Eid festivals.',
@@ -51,6 +52,9 @@ INSERT INTO places (id, name, category_id, description, latitude, longitude, dis
 'Be mindful of the local community; avoid loud noises in the late evenings.',
 'Kiosks selling spicy snacks (Wade) and fresh coconut water are common during sunset.',
 'Highly recommended for families. Lots of space for children to play.', false, '2 hours', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3y5x8E9j6J6X_6yY-yY9Y-yY9Y-yY9Y-yY9A&s'),
+
+(6, 'Heritage Cultural Center', 3, 'A building showcasing the rich history and traditions of the Ampara district.', 7.3500, 81.8000, 5.0, 100.00, '09:00:00', '17:00:00', 'Morning', true, 4.5, 
+'Built to preserve local history.', 'Cultural hub.', 'Local bus.', 'No food inside.', 'Respect exhibits.', 'Toilets available.', 'Students.', true, '1 hour', 'https://images.unsplash.com/photo-1518709268805-4e9042fb9f23'),
 
 (10, 'Sri Kannaki Amman Kovil - Karaitivu', 1, 'Historic Hindu temple in Karaitivu dedicated to Goddess Kannaki, known for its spiritual atmosphere.', 7.3818, 81.8384, 1.3, 0.00, '05:30:00', '20:00:00', 'Festival days', true, 4.6,
 'One of the oldest temples in the region, with roots tracing back centuries. It has a unique architectural style characteristic of Eastern Sri Lankan Kovils.',
@@ -107,31 +111,23 @@ INSERT INTO places (id, name, category_id, description, latitude, longitude, dis
 'Educational visits for students are encouraged.', true, '1 hour', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:AN...');
 
 -- Insert Travel Tips
-INSERT INTO travel_tips (place_id, tip, tip_type) VALUES
-(1, 'Dress modestly, remove shoes before entering', 'DRESS_CODE'),
-(1, 'Best to visit during non-prayer times', 'BEST_TIME'),
-(2, 'Bring drinking water as no shops nearby', 'GENERAL'),
-(2, 'Visit during sunset for beautiful photos', 'BEST_TIME'),
-(3, 'Early morning is best to see fishing boats return', 'BEST_TIME'),
-(9, 'Check out the local handloom shops nearby', 'GENERAL'),
-(10, 'Great spiritual atmosphere during evening Pooja', 'BEST_TIME');
-
--- Insert Travel Tips
-INSERT INTO travel_tips (place_id, tip, tip_type) VALUES
-(1, 'Dress modestly, remove shoes before entering', 'DRESS_CODE'),
-(1, 'Best to visit during non-prayer times', 'BEST_TIME'),
-(2, 'Bring drinking water as no shops nearby', 'GENERAL'),
-(2, 'Visit during sunset for beautiful photos', 'BEST_TIME'),
-(3, 'Early morning is best to see fishing boats return', 'BEST_TIME');
+INSERT IGNORE INTO travel_tips (id, place_id, tip, tip_type) VALUES
+(1, 1, 'Dress modestly, remove shoes before entering', 'DRESS_CODE'),
+(2, 1, 'Best to visit during non-prayer times', 'BEST_TIME'),
+(3, 2, 'Bring drinking water as no shops nearby', 'GENERAL'),
+(4, 2, 'Visit during sunset for beautiful photos', 'BEST_TIME'),
+(5, 3, 'Early morning is best to see fishing boats return', 'BEST_TIME'),
+(6, 9, 'Check out the local handloom shops nearby', 'GENERAL'),
+(7, 10, 'Great spiritual atmosphere during evening Pooja', 'BEST_TIME');
 
 -- Insert Sample Travel Plans
-INSERT INTO travel_plans (title, tourist_name, visit_date, is_finalized) VALUES 
-('Eastern Coast Weekend', 'Thahee', '2026-08-20', false),
-('Heritage Exploration', 'Sarah', '2026-09-15', true);
+INSERT IGNORE INTO travel_plans (id, title, tourist_name, visit_date, is_finalized) VALUES 
+(1, 'Eastern Coast Weekend', 'Thahee', '2026-08-20', false),
+(2, 'Heritage Exploration', 'Sarah', '2026-09-15', true);
 
 -- Insert Sample Plan Items
-INSERT INTO plan_items (plan_id, place_id, visit_order, estimated_arrival_time, estimated_duration_minutes, notes) VALUES
-(1, 1, 1, '09:00', 60, 'Morning prayer and architecture view'),
-(1, 2, 2, '11:00', 120, 'Beach time and photography'),
-(2, 6, 1, '10:00', 90, 'Visit the historic temple'),
-(2, 3, 2, '14:30', 60, 'Harbor tour');
+INSERT IGNORE INTO plan_items (id, travel_plan_id, place_id, visit_order, estimated_arrival_time, estimated_duration_minutes, notes) VALUES
+(1, 1, 1, 1, '09:00', 60, 'Morning prayer and architecture view'),
+(2, 1, 2, 2, '11:00', 120, 'Beach time and photography'),
+(3, 2, 6, 1, '10:00', 90, 'Visit the historic temple'),
+(4, 2, 3, 2, '14:30', 60, 'Harbor tour');
