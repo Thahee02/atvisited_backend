@@ -33,5 +33,7 @@ public class TravelPlanDTO {
         private Integer estimatedDurationMinutes;
         private String notes;
         private BigDecimal cost;
+        private Double latitude;
+        private Double longitude;
     }
 }

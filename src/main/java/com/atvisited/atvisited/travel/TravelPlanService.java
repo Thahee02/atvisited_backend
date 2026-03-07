@@ -91,6 +91,8 @@ public class TravelPlanService {
                         .estimatedDurationMinutes(item.getEstimatedDurationMinutes())
                         .notes(item.getNotes())
                         .cost(item.getPlace().getEstimatedCost())
+                        .latitude(item.getPlace().getLatitude())
+                        .longitude(item.getPlace().getLongitude())
                         .build())
                 .collect(Collectors.toList());
 
