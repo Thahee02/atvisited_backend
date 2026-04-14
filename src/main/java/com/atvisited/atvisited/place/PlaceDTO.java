@@ -18,8 +18,7 @@ public class PlaceDTO {
     private String imageUrl;
     private Double rating;
     private String bestTimeToVisit;
-
-    // For map display
+    private String address;
     private Double latitude;
     private Double longitude;
 }

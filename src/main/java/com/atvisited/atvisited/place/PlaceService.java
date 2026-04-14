@@ -86,6 +86,7 @@ public class PlaceService {
         dto.setBestTimeToVisit(place.getBestTimeToVisit());
         dto.setLatitude(place.getLatitude());
         dto.setLongitude(place.getLongitude());
+        dto.setAddress(place.getAddress());
         return dto;
     }
 
