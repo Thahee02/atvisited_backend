@@ -31,14 +31,17 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        // Public auth endpoints only
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/login", "/api/v1/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/logout").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/auth/me").permitAll()
+                        // change-password requires authentication (falls to anyRequest below)
                         .requestMatchers(HttpMethod.GET, "/api/v1/places", "/api/v1/places/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/categories", "/api/v1/categories/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/v1/files/upload").hasAuthority("ADMIN")
 
                         // Admin restricted endpoints
-
                         .requestMatchers(HttpMethod.POST, "/api/v1/places/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/places/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/places/**").hasAuthority("ADMIN")
